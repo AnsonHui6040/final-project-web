@@ -27,14 +27,18 @@ export function SectionTitle({
         </p>
       ) : null}
       <h2
-        className={`text-3xl font-semibold tracking-normal sm:text-4xl ${
+        className={`text-2xl font-semibold tracking-normal sm:text-4xl ${
           dark ? "text-white" : "text-ink"
         }`}
       >
         {title}
       </h2>
       {children ? (
-        <p className={`mt-4 text-base leading-7 ${dark ? "text-white/66" : "text-ink/68"}`}>
+        <p
+          className={`mt-3 text-sm leading-6 sm:mt-4 sm:text-base sm:leading-7 ${
+            dark ? "text-white/66" : "text-ink/68"
+          }`}
+        >
           {children}
         </p>
       ) : null}

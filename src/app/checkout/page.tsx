@@ -14,10 +14,10 @@ export default function CheckoutPage() {
           <p className="text-sm font-semibold tracking-[0.18em] text-rose-500">
             PRE-ORDER
           </p>
-          <h1 className="mt-3 text-3xl font-semibold text-ink sm:text-4xl">
+          <h1 className="mt-3 text-2xl font-semibold text-ink sm:text-4xl">
             感謝你的喜歡
           </h1>
-          <p className="mt-4 text-base leading-7 text-ink/64">
+          <p className="mt-3 text-sm leading-6 text-ink/64 sm:mt-4 sm:text-base sm:leading-7">
             正式金流開放前，請透過以下方式完成預購。目前為預購測試階段，請透過 Instagram / LINE / Google Form 完成下單。
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">

@@ -20,12 +20,12 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-cream/88 backdrop-blur-xl">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/" className="flex flex-col leading-none">
-          <span className="text-lg font-bold tracking-normal text-ink">
+          <span className="text-base font-bold tracking-normal text-ink sm:text-lg">
             Luma Beads
           </span>
-          <span className="mt-1 text-xs font-medium text-ink/55">
+          <span className="mt-1 text-[11px] font-medium text-ink/55 sm:text-xs">
             日月手串
           </span>
         </Link>
@@ -53,7 +53,7 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <Link
             href="/cart"
-            className="relative inline-flex min-h-11 items-center justify-center rounded-full border border-stone-300 bg-white px-4 text-sm font-semibold text-ink shadow-sm transition hover:border-ink"
+            className="relative inline-flex min-h-10 items-center justify-center rounded-full border border-stone-300 bg-white px-3 text-xs font-semibold text-ink shadow-sm transition hover:border-ink sm:min-h-11 sm:px-4 sm:text-sm"
           >
             購物車
             {itemCount > 0 ? (
@@ -64,7 +64,7 @@ export function Navbar() {
           </Link>
           <button
             type="button"
-            className="inline-flex min-h-11 items-center justify-center rounded-full border border-stone-300 bg-white px-4 text-sm font-semibold text-ink md:hidden"
+            className="inline-flex min-h-10 items-center justify-center rounded-full border border-stone-300 bg-white px-3 text-xs font-semibold text-ink md:hidden"
             onClick={() => setOpen((current) => !current)}
             aria-expanded={open}
           >

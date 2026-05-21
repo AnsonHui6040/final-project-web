@@ -43,60 +43,60 @@ export default function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden">
-        <div className="mx-auto grid min-h-[calc(100svh-132px)] max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+        <div className="mx-auto grid max-w-7xl items-center gap-7 px-4 pb-10 pt-8 sm:px-6 sm:py-12 lg:min-h-[calc(100svh-132px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:px-8">
           <div className="max-w-3xl">
-            <p className="mb-4 inline-flex rounded-full border border-white bg-white/70 px-4 py-2 text-sm font-semibold text-rose-700 shadow-sm">
+            <p className="mb-4 inline-flex rounded-full border border-white bg-white/70 px-3 py-2 text-xs font-semibold text-rose-700 shadow-sm sm:px-4 sm:text-sm">
               Luma Beads｜日月手串
             </p>
-            <h1 className="text-5xl font-semibold leading-tight tracking-normal text-ink sm:text-6xl lg:text-7xl">
+            <h1 className="max-w-[9em] text-4xl font-semibold leading-[1.16] tracking-normal text-ink sm:max-w-none sm:text-6xl lg:text-7xl">
               把今天的顏色、生日與祝福戴在手上
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/68">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-ink/68 sm:mt-6 sm:text-lg sm:leading-8">
               根據星座月份、幸運色與生日推薦，從固定設計款中找到適合你的日常手串。
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row">
               <Link
                 href="/finder"
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-6 text-base font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-black"
+                className="inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-6 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-black sm:min-h-12 sm:text-base"
               >
                 找我的手串
               </Link>
               <Link
                 href="/products"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-stone-300 bg-white/80 px-6 text-base font-semibold text-ink transition hover:border-ink"
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-stone-300 bg-white/80 px-6 text-sm font-semibold text-ink transition hover:border-ink sm:min-h-12 sm:text-base"
               >
                 查看全部商品
               </Link>
             </div>
           </div>
 
-          <div className="relative min-h-[360px] lg:min-h-[560px]">
+          <div className="relative min-h-[260px] sm:min-h-[360px] lg:min-h-[560px]">
             <ProductImage
               product={heroProduct}
-              className="absolute inset-x-0 top-8 aspect-[4/5] shadow-soft sm:inset-x-10 lg:inset-x-0"
+              className="absolute inset-x-0 top-0 aspect-[4/3] shadow-soft sm:inset-x-10 sm:aspect-[4/5] lg:inset-x-0 lg:top-8"
             />
-            <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/80 bg-white/78 p-4 shadow-soft backdrop-blur sm:left-10 sm:right-10 lg:left-8 lg:right-8">
-              <p className="text-sm font-semibold text-ink">{heroProduct.name}</p>
-              <p className="mt-1 text-sm text-ink/60">{heroProduct.meaning}</p>
+            <div className="absolute bottom-3 left-3 right-3 rounded-2xl border border-white/80 bg-white/78 p-3 shadow-soft backdrop-blur sm:left-10 sm:right-10 sm:p-4 lg:left-8 lg:right-8">
+              <p className="text-xs font-semibold text-ink sm:text-sm">{heroProduct.name}</p>
+              <p className="mt-1 text-xs text-ink/60 sm:text-sm">{heroProduct.meaning}</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white/60 py-16">
+      <section className="bg-white/60 py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionTitle eyebrow="SERIES" title="四個入口，找到剛好適合的款式">
             每一款都是預先設計好的固定款式，讓你不用煩惱搭配，也能快速找到適合自己的風格。
           </SectionTitle>
-          <div className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-7 grid gap-4 sm:mt-9 md:grid-cols-2 lg:grid-cols-4">
             {series.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
-                className="group rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft"
+                className="group rounded-2xl border border-stone-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-soft sm:p-6"
               >
-                <span className={`mb-5 block h-2 w-16 rounded-full ${item.accent}`} />
-                <h3 className="text-xl font-semibold text-ink group-hover:text-rose-700">
+                <span className={`mb-4 block h-2 w-14 rounded-full sm:mb-5 sm:w-16 ${item.accent}`} />
+                <h3 className="text-lg font-semibold text-ink group-hover:text-rose-700 sm:text-xl">
                   {item.title}
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-ink/62">{item.text}</p>
@@ -146,15 +146,15 @@ export default function HomePage() {
 
       <section className="py-16">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-semibold text-ink sm:text-4xl">
+          <h2 className="text-2xl font-semibold text-ink sm:text-4xl">
             今天想把什麼狀態戴在手上？
           </h2>
-          <p className="mt-4 text-base leading-7 text-ink/64">
+          <p className="mt-3 text-sm leading-6 text-ink/64 sm:mt-4 sm:text-base sm:leading-7">
             從星座月份、幸運色或生日推薦開始，看看目前有哪些現有款式適合你。
           </p>
           <Link
             href="/finder"
-            className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-7 text-base font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-black"
+            className="mt-6 inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-6 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-black sm:mt-7 sm:min-h-12 sm:px-7 sm:text-base"
           >
             立即找你的手串
           </Link>

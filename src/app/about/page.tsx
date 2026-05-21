@@ -58,10 +58,10 @@ export default function AboutPage() {
 
       <section className="py-14">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-semibold text-ink">
+          <h2 className="text-2xl font-semibold text-ink sm:text-3xl">
             讓選擇變簡單，讓禮物更有感
           </h2>
-          <p className="mt-4 text-base leading-7 text-ink/64">
+          <p className="mt-3 text-sm leading-6 text-ink/64 sm:mt-4 sm:text-base sm:leading-7">
             我們不承諾任何實際功效，但相信一件有意義的小物，可以陪你記得今天想成為什麼樣子。
           </p>
           <Link

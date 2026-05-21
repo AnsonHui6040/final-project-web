@@ -79,10 +79,10 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               ) : null}
             </div>
 
-            <h1 className="text-3xl font-semibold leading-tight text-ink sm:text-4xl">
+            <h1 className="text-2xl font-semibold leading-tight text-ink sm:text-4xl">
               {product.name}
             </h1>
-            <p className="mt-4 text-3xl font-semibold text-ink">
+            <p className="mt-3 text-2xl font-semibold text-ink sm:mt-4 sm:text-3xl">
               {formatPrice(product.price)}
             </p>
 
