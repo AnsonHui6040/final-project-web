@@ -5,7 +5,6 @@ import { CartProvider } from "@/lib/cart";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { SiteNotice } from "@/components/SiteNotice";
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +25,6 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <CartProvider>
           <Navbar />
-          <SiteNotice />
           <main>{children}</main>
           <Footer />
           <CartDrawer />
