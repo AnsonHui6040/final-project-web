@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart";
-import { CartDrawer } from "@/components/CartDrawer";
+import { I18nProvider } from "@/lib/i18n";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
@@ -23,12 +23,13 @@ export default function RootLayout({
   return (
     <html lang="zh-Hant-TW">
       <body className="font-sans antialiased">
-        <CartProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <CartDrawer />
-        </CartProvider>
+        <I18nProvider>
+          <CartProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </CartProvider>
+        </I18nProvider>
       </body>
     </html>
   );

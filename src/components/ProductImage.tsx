@@ -1,4 +1,7 @@
+"use client";
+
 import type { Product } from "@/types/product";
+import { useI18n } from "@/lib/i18n";
 
 const imageStyles: Record<string, string> = {
   red: "from-[#efe2d9] via-[#c99a8f] to-[#8b4a3d]",
@@ -37,11 +40,13 @@ export function ProductImage({
 }) {
   const gradient = imageStyles[product.image] ?? imageStyles.white;
   const beads = beadStyles[product.image] ?? beadStyles.white;
+  const { productText, t } = useI18n();
+  const copy = productText(product);
 
   return (
     <div
       className={`relative overflow-hidden bg-gradient-to-br ${gradient} ${className}`}
-      aria-label={`${product.name} 情境商品圖`}
+      aria-label={`${copy.name} ${t("productImage")}`}
     >
       <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(251,248,243,0.58),rgba(251,248,243,0)_46%),linear-gradient(0deg,rgba(43,37,34,0.18),rgba(43,37,34,0)_38%)]" />
       <div className="absolute left-[8%] top-[12%] h-[56%] w-[46%] -rotate-6 border border-white/30 bg-white/18 backdrop-blur-[1px]" />
@@ -60,7 +65,7 @@ export function ProductImage({
         ))}
       </div>
       <div className="absolute bottom-4 left-4 border border-white/60 bg-porcelain/80 px-3 py-1 text-xs font-medium text-ink/68 backdrop-blur">
-        Handcrafted aura piece
+        {t("handcraftedPiece")}
       </div>
     </div>
   );

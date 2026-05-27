@@ -1,32 +1,35 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/data/products";
 import { ProductGrid } from "@/components/ProductGrid";
 import { ProductImage } from "@/components/ProductImage";
 import { SectionTitle } from "@/components/SectionTitle";
+import { useI18n } from "@/lib/i18n";
 
 const states = [
   {
-    title: "Calm",
-    text: "給需要慢下來的日子，一點貼近皮膚的安定。",
+    titleKey: "calm",
+    textKey: "calmText",
     href: "/products/cancer-moon-pearl-bracelet"
   },
   {
-    title: "Boundary",
-    text: "保留距離感，也保留自己的節奏與重量。",
+    titleKey: "boundary",
+    textKey: "boundaryText",
     href: "/products/black-boundary-bracelet"
   },
   {
-    title: "Tenderness",
-    text: "讓溫柔不是討好，而是一種清楚的存在。",
+    titleKey: "tenderness",
+    textKey: "tendernessText",
     href: "/products/pink-kindness-bracelet"
   },
   {
-    title: "New Light",
-    text: "為轉換期、生日後、重新開始的那一刻留一個記號。",
+    titleKey: "newLight",
+    textKey: "newLightText",
     href: "/products/new-start-limited-bracelet"
   }
-];
+ ] as const;
 
 const rituals = [
   "依照生日、星座、顏色與當下狀態找出象徵線索",
@@ -50,6 +53,7 @@ const featuredProducts = products.filter((product) =>
 );
 
 export default function HomePage() {
+  const { t } = useI18n();
   const heroProduct = products.find(
     (product) => product.slug === "pink-kindness-bracelet"
   ) ?? products[0];
@@ -69,26 +73,26 @@ export default function HomePage() {
         <div className="relative mx-auto flex min-h-[calc(100svh-118px)] max-w-7xl items-end px-4 pb-16 pt-24 sm:px-6 sm:pb-20 lg:px-8">
           <div className="max-w-3xl">
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.32em] text-bone/80">
-              Handcrafted Aura Jewelry
+              {t("homeEyebrow")}
             </p>
             <h1 className="font-serif text-6xl leading-[0.95] text-porcelain sm:text-7xl lg:text-8xl">
-              Luma Beads
+              {t("homeTitle")}
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-porcelain/78 sm:text-xl">
-              把看不見的感受，做成可以佩戴的存在感。為 Gen Z 與年輕專業族群設計的情緒護符型手工飾品。
+              {t("homeIntro")}
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/finder"
                 className="inline-flex min-h-12 items-center justify-center bg-porcelain px-7 text-sm font-semibold text-ink transition hover:bg-white"
               >
-                開始 Aura Guide
+                {t("startGuide")}
               </Link>
               <Link
                 href="/products"
                 className="inline-flex min-h-12 items-center justify-center border border-porcelain/55 px-7 text-sm font-semibold text-porcelain transition hover:border-porcelain hover:bg-porcelain/10"
               >
-                Curated Shop
+                {t("curatedShop")}
               </Link>
             </div>
           </div>
@@ -97,8 +101,8 @@ export default function HomePage() {
 
       <section className="border-b border-ink/10 bg-porcelain py-14 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <SectionTitle eyebrow="PHILOSOPHY" title="不是把幸運戴上，而是把狀態留住">
-            Luma Beads 以色彩、生日與星座作為情緒線索，將日常壓力、轉換期與送禮心意，整理成可佩戴的手工飾品。
+          <SectionTitle eyebrow={t("philosophy")} title={t("philosophyTitle")}>
+            {t("philosophyBody")}
           </SectionTitle>
           <div className="grid gap-6 text-base leading-8 text-ink/68 sm:grid-cols-2">
             <p>
@@ -113,24 +117,24 @@ export default function HomePage() {
 
       <section className="bg-cream py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle eyebrow="STATES" title="以情緒狀態陳列，而不是用分類推銷">
-            四個入口對應不同的佩戴時刻，讓選款更像翻閱一本可購買的情緒 lookbook。
+          <SectionTitle eyebrow={t("states")} title={t("statesTitle")}>
+            {t("statesBody")}
           </SectionTitle>
           <div className="mt-10 grid gap-px overflow-hidden border border-ink/10 bg-ink/10 md:grid-cols-4">
             {states.map((state) => (
               <Link
-                key={state.title}
+                key={state.titleKey}
                 href={state.href}
                 className="group bg-porcelain p-6 transition hover:bg-bone sm:p-7"
               >
                 <p className="font-serif text-4xl text-ink sm:text-5xl">
-                  {state.title}
+                  {t(state.titleKey)}
                 </p>
                 <p className="mt-5 min-h-[4.5rem] text-sm leading-6 text-ink/64">
-                  {state.text}
+                  {t(state.textKey)}
                 </p>
                 <span className="mt-8 inline-flex text-xs font-semibold uppercase tracking-[0.22em] text-rose-700">
-                  Enter mood
+                  {t("enterMood")}
                 </span>
               </Link>
             ))}
@@ -141,14 +145,14 @@ export default function HomePage() {
       <section className="bg-porcelain py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionTitle eyebrow="SIGNATURES" title="Signature pieces">
-              精選款式先呈現材質、情緒與生活畫面，購買動作留到使用者真的想靠近時。
+            <SectionTitle eyebrow={t("signatures")} title={t("signaturesTitle")}>
+              {t("signaturesBody")}
             </SectionTitle>
             <Link
               href="/products"
               className="inline-flex min-h-11 items-center justify-center border border-ink/20 px-5 text-sm font-semibold text-ink transition hover:border-ink"
             >
-              View all pieces
+              {t("viewAll")}
             </Link>
           </div>
           <div className="mt-10">
@@ -170,13 +174,13 @@ export default function HomePage() {
           </div>
           <div className="flex flex-col justify-center">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-rose-300">
-              UNBOXING RITUAL
+              {t("unboxing")}
             </p>
             <h2 className="font-serif text-5xl leading-tight text-porcelain sm:text-6xl">
-              送出的不只是飾品，是一段被整理好的心意。
+              {t("unboxingTitle")}
             </h2>
             <p className="mt-6 max-w-xl text-base leading-8 text-porcelain/70">
-              包裝被設計成慢下來的片刻：描圖紙、布袋、象徵卡與一段可留存的短句，讓收禮者在打開前就感覺到被想起。
+              {t("unboxingBody")}
             </p>
             <ol className="mt-9 grid gap-4">
               {rituals.map((item, index) => (
@@ -197,8 +201,8 @@ export default function HomePage() {
       <section className="bg-bone py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
           <div className="flex flex-col justify-between gap-10">
-            <SectionTitle eyebrow="LIFESTYLE" title="讓商品出現在生活裡，而不是貨架上">
-              視覺應該呈現皮膚、衣料、晨光、包袋與拆封過程。商品是狀態的載體，不只是可被加入購物車的物件。
+            <SectionTitle eyebrow={t("lifestyle")} title={t("lifestyleTitle")}>
+              {t("lifestyleBody")}
             </SectionTitle>
             <div className="grid gap-px border border-ink/10 bg-ink/10">
               {editorialMoments.map((moment) => (
@@ -226,7 +230,7 @@ export default function HomePage() {
               />
               <div className="bg-porcelain p-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-700">
-                  Aura note
+                  {t("auraNote")}
                 </p>
                 <p className="mt-4 font-serif text-3xl leading-tight text-ink">
                   A quiet symbol for days when softness still needs structure.
@@ -239,20 +243,18 @@ export default function HomePage() {
 
       <section className="bg-porcelain py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-rose-700">
-            AURA GUIDE
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-rose-700">{t("navGuide")}</p>
           <h2 className="mt-5 font-serif text-5xl leading-tight text-ink sm:text-7xl">
-            今天想帶著什麼狀態出門？
+            {t("guideTitle")}
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-ink/64">
-            從生日、星座與顏色開始，但最後回到你的生活：考試、通勤、告白、轉職、送禮，或只是想把自己照顧好的一天。
+            {t("guideBody")}
           </p>
           <Link
             href="/finder"
             className="mt-9 inline-flex min-h-12 items-center justify-center bg-ink px-8 text-sm font-semibold text-porcelain shadow-soft transition hover:bg-brown"
           >
-            Begin the guide
+            {t("startGuide")}
           </Link>
         </div>
       </section>

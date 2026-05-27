@@ -1,11 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  colorLabels,
-  products,
-  seriesLabels
-} from "@/data/products";
+import { products } from "@/data/products";
+import { useI18n } from "@/lib/i18n";
 import type { ProductSeries } from "@/types/product";
 import { ProductGrid } from "./ProductGrid";
 
@@ -13,6 +10,7 @@ const allSeries = "all";
 const allColors = "all";
 
 export function ProductsBrowser() {
+  const { colorLabel, seriesLabel, t } = useI18n();
   const [series, setSeries] = useState<ProductSeries | typeof allSeries>(
     allSeries
   );
@@ -37,7 +35,7 @@ export function ProductsBrowser() {
     <div>
       <div className="mb-10 grid gap-3 border border-ink/10 bg-porcelain p-4 md:grid-cols-3">
         <label className="grid gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink/56">
-          Collection
+          {t("collection")}
           <select
             value={series}
             onChange={(event) =>
@@ -45,41 +43,41 @@ export function ProductsBrowser() {
             }
             className="min-h-11 border border-ink/15 bg-cream px-3 text-sm normal-case tracking-normal text-ink outline-none focus:border-ink"
           >
-            <option value={allSeries}>All collections</option>
-            {Object.entries(seriesLabels).map(([value, label]) => (
+            <option value={allSeries}>{t("allCollections")}</option>
+            {(["zodiac", "color", "birthday", "limited"] as ProductSeries[]).map((value) => (
               <option key={value} value={value}>
-                {label}
+                {seriesLabel(value)}
               </option>
             ))}
           </select>
         </label>
 
         <label className="grid gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink/56">
-          Aura tone
+          {t("auraTone")}
           <select
             value={color}
             onChange={(event) => setColor(event.target.value)}
             className="min-h-11 border border-ink/15 bg-cream px-3 text-sm normal-case tracking-normal text-ink outline-none focus:border-ink"
           >
-            <option value={allColors}>All tones</option>
+            <option value={allColors}>{t("allTones")}</option>
             {colors.map((colorValue) => (
               <option key={colorValue} value={colorValue}>
-                {colorLabels[colorValue] ?? colorValue}
+                {colorLabel(colorValue)}
               </option>
             ))}
           </select>
         </label>
 
         <label className="grid gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink/56">
-          Curation
+          {t("curation")}
           <select
             value={sort}
             onChange={(event) => setSort(event.target.value)}
             className="min-h-11 border border-ink/15 bg-cream px-3 text-sm normal-case tracking-normal text-ink outline-none focus:border-ink"
           >
-            <option value="featured">Editorial first</option>
-            <option value="price-asc">Everyday entry</option>
-            <option value="price-desc">Gift pieces</option>
+            <option value="featured">{t("editorialFirst")}</option>
+            <option value="price-asc">{t("everydayEntry")}</option>
+            <option value="price-desc">{t("giftPieces")}</option>
           </select>
         </label>
       </div>

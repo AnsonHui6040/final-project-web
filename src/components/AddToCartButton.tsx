@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
+import { useI18n } from "@/lib/i18n";
 import type { Product } from "@/types/product";
 
 export function AddToCartButton({
@@ -14,6 +15,7 @@ export function AddToCartButton({
   testId?: string;
 }) {
   const { addItem } = useCart();
+  const { t } = useI18n();
   const [added, setAdded] = useState(false);
   const soldOut = product.stockStatus === "sold-out";
 
@@ -33,7 +35,7 @@ export function AddToCartButton({
           : "bg-ink text-porcelain shadow-soft hover:-translate-y-0.5 hover:bg-brown"
       } ${className}`}
     >
-      {soldOut ? "Sold out" : added ? "Added" : "Add"}
+      {soldOut ? t("soldOut") : added ? t("added") : t("add")}
     </button>
   );
 }
