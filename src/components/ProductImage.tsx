@@ -1,61 +1,66 @@
 import type { Product } from "@/types/product";
 
 const imageStyles: Record<string, string> = {
-  red: "from-rose-100 via-red-200 to-amber-100",
-  pink: "from-pink-100 via-rose to-white",
-  yellow: "from-yellow-100 via-gold to-white",
-  green: "from-emerald-100 via-sage to-white",
-  blue: "from-sky-100 via-sky to-white",
-  purple: "from-violet-100 via-lilac to-white",
-  black: "from-zinc-200 via-zinc-500 to-stone-100",
-  white: "from-white via-stone-100 to-lilac",
-  gray: "from-slate-100 via-slate-300 to-white",
-  gold: "from-yellow-50 via-gold to-white"
+  red: "from-[#efe2d9] via-[#c99a8f] to-[#8b4a3d]",
+  pink: "from-[#f4eee9] via-[#d8beb7] to-[#b8837a]",
+  yellow: "from-[#f2eadc] via-[#c4a46f] to-[#78624a]",
+  green: "from-[#eef0e8] via-[#a8b2a3] to-[#5e6558]",
+  blue: "from-[#eef1ef] via-[#a9b8bc] to-[#67777c]",
+  purple: "from-[#f0ece8] via-[#cbc4c0] to-[#7c7371]",
+  black: "from-[#d8d2c9] via-[#6f625a] to-[#2b2522]",
+  white: "from-[#fbf8f3] via-[#e6ddd2] to-[#c8ada5]",
+  gray: "from-[#efebe4] via-[#b4a79a] to-[#6f625a]",
+  gold: "from-[#f2eadc] via-[#8a735b] to-[#4c4039]"
 };
 
 const beadStyles: Record<string, string[]> = {
-  red: ["bg-red-500", "bg-rose-300", "bg-amber-200", "bg-red-700"],
-  pink: ["bg-pink-300", "bg-rose", "bg-white", "bg-pink-200"],
-  yellow: ["bg-yellow-300", "bg-gold", "bg-white", "bg-amber-200"],
-  green: ["bg-emerald-400", "bg-sage", "bg-white", "bg-green-700"],
-  blue: ["bg-sky-300", "bg-blue-500", "bg-white", "bg-sky"],
-  purple: ["bg-violet-300", "bg-purple-700", "bg-white", "bg-lilac"],
-  black: ["bg-zinc-900", "bg-zinc-500", "bg-stone-200", "bg-gold"],
-  white: ["bg-white", "bg-stone-100", "bg-lilac", "bg-gold"],
-  gray: ["bg-slate-400", "bg-slate-200", "bg-white", "bg-zinc-500"],
-  gold: ["bg-gold", "bg-yellow-100", "bg-white", "bg-amber-500"]
+  red: ["bg-[#8b4a3d]", "bg-[#c99a8f]", "bg-[#efe2d9]", "bg-[#b46b5e]"],
+  pink: ["bg-[#d8beb7]", "bg-[#c8ada5]", "bg-[#fbf8f3]", "bg-[#b8837a]"],
+  yellow: ["bg-[#c4a46f]", "bg-[#8a735b]", "bg-[#fbf8f3]", "bg-[#e2cfaa]"],
+  green: ["bg-[#a8b2a3]", "bg-[#5e6558]", "bg-[#fbf8f3]", "bg-[#c7d0c1]"],
+  blue: ["bg-[#a9b8bc]", "bg-[#67777c]", "bg-[#fbf8f3]", "bg-[#cdd7d8]"],
+  purple: ["bg-[#cbc4c0]", "bg-[#7c7371]", "bg-[#fbf8f3]", "bg-[#d8c8cc]"],
+  black: ["bg-[#2b2522]", "bg-[#6f625a]", "bg-[#e6ddd2]", "bg-[#8a735b]"],
+  white: ["bg-[#fbf8f3]", "bg-[#e6ddd2]", "bg-[#c8ada5]", "bg-[#8a735b]"],
+  gray: ["bg-[#b4a79a]", "bg-[#e6ddd2]", "bg-[#fbf8f3]", "bg-[#6f625a]"],
+  gold: ["bg-[#8a735b]", "bg-[#e6ddd2]", "bg-[#fbf8f3]", "bg-[#c4a46f]"]
 };
 
 export function ProductImage({
   product,
-  className = ""
+  className = "",
+  variant = "product"
 }: {
   product: Product;
   className?: string;
+  variant?: "product" | "editorial";
 }) {
   const gradient = imageStyles[product.image] ?? imageStyles.white;
   const beads = beadStyles[product.image] ?? beadStyles.white;
 
   return (
     <div
-      className={`relative overflow-hidden rounded-[1.25rem] bg-gradient-to-br ${gradient} ${className}`}
-      aria-label={`${product.name} 商品圖片佔位圖`}
+      className={`relative overflow-hidden bg-gradient-to-br ${gradient} ${className}`}
+      aria-label={`${product.name} 情境商品圖`}
     >
-      <div className="absolute left-6 top-6 h-16 w-16 rounded-full bg-white/45 blur-xl" />
-      <div className="absolute bottom-5 right-5 h-24 w-24 rounded-full bg-white/35 blur-2xl" />
-      <div className="absolute inset-x-6 top-1/2 h-px bg-white/65" />
-      <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 sm:gap-3">
-        {[...Array(10)].map((_, index) => (
+      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(251,248,243,0.58),rgba(251,248,243,0)_46%),linear-gradient(0deg,rgba(43,37,34,0.18),rgba(43,37,34,0)_38%)]" />
+      <div className="absolute left-[8%] top-[12%] h-[56%] w-[46%] -rotate-6 border border-white/30 bg-white/18 backdrop-blur-[1px]" />
+      <div className="absolute bottom-[8%] right-[7%] h-[34%] w-[44%] rotate-3 border border-white/25 bg-ink/8" />
+      <div className="absolute inset-x-[14%] top-1/2 h-px bg-white/58" />
+      <div className={`absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center ${variant === "editorial" ? "gap-3 sm:gap-4" : "gap-2 sm:gap-3"}`}>
+        {[...Array(12)].map((_, index) => (
           <span
             key={index}
-            className={`block h-7 w-7 rounded-full border border-white/70 shadow-[inset_0_2px_7px_rgba(255,255,255,0.75),0_8px_18px_rgba(44,35,31,0.16)] sm:h-9 sm:w-9 ${
+            className={`block rounded-full border border-white/70 shadow-[inset_0_2px_7px_rgba(255,255,255,0.72),0_8px_18px_rgba(44,35,31,0.20)] ${
+              variant === "editorial" ? "h-8 w-8 sm:h-10 sm:w-10" : "h-6 w-6 sm:h-8 sm:w-8"
+            } ${
               beads[index % beads.length]
             }`}
           />
         ))}
       </div>
-      <div className="absolute bottom-4 left-4 rounded-full border border-white/70 bg-white/70 px-3 py-1 text-xs font-medium text-ink/70 backdrop-blur">
-        Luma Beads
+      <div className="absolute bottom-4 left-4 border border-white/60 bg-porcelain/80 px-3 py-1 text-xs font-medium text-ink/68 backdrop-blur">
+        Handcrafted aura piece
       </div>
     </div>
   );

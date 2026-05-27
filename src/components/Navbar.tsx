@@ -6,11 +6,11 @@ import { useState } from "react";
 import { useCart } from "@/lib/cart";
 
 const navItems = [
-  { href: "/", label: "首頁" },
-  { href: "/products", label: "商品" },
-  { href: "/finder", label: "找手串" },
-  { href: "/limited", label: "限量祈福" },
-  { href: "/about", label: "關於" }
+  { href: "/", label: "Home" },
+  { href: "/products", label: "Shop" },
+  { href: "/finder", label: "Aura Guide" },
+  { href: "/limited", label: "Limited" },
+  { href: "/about", label: "Story" }
 ];
 
 export function Navbar() {
@@ -19,14 +19,14 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-cream/88 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-porcelain/88 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/" className="flex flex-col leading-none">
-          <span className="text-base font-bold tracking-normal text-ink sm:text-lg">
+          <span className="font-serif text-2xl tracking-normal text-ink">
             Luma Beads
           </span>
-          <span className="mt-1 text-[11px] font-medium text-ink/55 sm:text-xs">
-            日月手串
+          <span className="mt-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-ink/48">
+            Aura Jewelry
           </span>
         </Link>
 
@@ -38,10 +38,10 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                className={`px-4 py-2 text-sm font-medium transition ${
                   active
-                    ? "bg-white text-ink shadow-sm"
-                    : "text-ink/62 hover:bg-white/70 hover:text-ink"
+                    ? "bg-ink text-porcelain"
+                    : "text-ink/62 hover:bg-bone/70 hover:text-ink"
                 }`}
               >
                 {item.label}
@@ -53,18 +53,18 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <Link
             href="/cart"
-            className="relative inline-flex min-h-10 items-center justify-center rounded-full border border-stone-300 bg-white px-3 text-xs font-semibold text-ink shadow-sm transition hover:border-ink sm:min-h-11 sm:px-4 sm:text-sm"
+            className="relative inline-flex min-h-10 items-center justify-center border border-ink/15 bg-porcelain px-3 text-xs font-semibold text-ink transition hover:border-ink sm:min-h-11 sm:px-4 sm:text-sm"
           >
-            購物車
+            Cart
             {itemCount > 0 ? (
-              <span className="ml-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink px-2 text-xs text-white">
+              <span className="ml-2 inline-flex h-6 min-w-6 items-center justify-center bg-ink px-2 text-xs text-porcelain">
                 {itemCount}
               </span>
             ) : null}
           </Link>
           <button
             type="button"
-            className="inline-flex min-h-10 items-center justify-center rounded-full border border-stone-300 bg-white px-3 text-xs font-semibold text-ink md:hidden"
+            className="inline-flex min-h-10 items-center justify-center border border-ink/15 bg-porcelain px-3 text-xs font-semibold text-ink md:hidden"
             onClick={() => setOpen((current) => !current)}
             aria-expanded={open}
           >
@@ -74,14 +74,14 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="border-t border-stone-200 bg-cream px-4 py-3 md:hidden">
+        <div className="border-t border-ink/10 bg-porcelain px-4 py-3 md:hidden">
           <div className="grid gap-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-xl bg-white px-4 py-3 text-sm font-semibold text-ink/75"
+                className="bg-cream px-4 py-3 text-sm font-semibold text-ink/75"
               >
                 {item.label}
               </Link>

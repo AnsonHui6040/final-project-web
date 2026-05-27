@@ -12,9 +12,9 @@ import { ProductGrid } from "./ProductGrid";
 type FinderTab = "zodiac" | "color" | "birthday";
 
 const tabs: { id: FinderTab; label: string }[] = [
-  { id: "zodiac", label: "星座月份" },
-  { id: "color", label: "幸運色" },
-  { id: "birthday", label: "生日推薦" }
+  { id: "zodiac", label: "Zodiac" },
+  { id: "color", label: "Aura" },
+  { id: "birthday", label: "Birthday" }
 ];
 
 const monthOptions = Array.from({ length: 12 }, (_, index) => index + 1);
@@ -63,15 +63,15 @@ export function FinderForm() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[360px_1fr]">
-      <aside className="self-start rounded-2xl border border-stone-200 bg-white p-5 shadow-sm">
-        <div className="grid grid-cols-3 rounded-full bg-cream p-1">
+      <aside className="self-start border border-ink/10 bg-porcelain p-5 shadow-sm">
+        <div className="grid grid-cols-3 bg-cream p-1">
           {tabs.map((item) => (
             <button
               key={item.id}
               type="button"
               onClick={() => setTab(item.id)}
-              className={`min-h-10 rounded-full px-3 text-sm font-semibold transition ${
-                tab === item.id ? "bg-white text-ink shadow-sm" : "text-ink/58"
+              className={`min-h-10 px-3 text-sm font-semibold transition ${
+                tab === item.id ? "bg-ink text-porcelain shadow-sm" : "text-ink/58"
               }`}
             >
               {item.label}
@@ -93,7 +93,7 @@ export function FinderForm() {
                     setZodiac(event.target.value);
                     if (next) setZodiacMonth(next.month);
                   }}
-                  className="min-h-11 rounded-xl border border-stone-300 bg-cream px-3 text-sm text-ink outline-none focus:border-ink"
+                  className="min-h-11 border border-ink/15 bg-cream px-3 text-sm text-ink outline-none focus:border-ink"
                 >
                   {zodiacOptions.map((option) => (
                     <option key={option.value} value={option.value}>
@@ -107,7 +107,7 @@ export function FinderForm() {
                 <select
                   value={zodiacMonth}
                   onChange={(event) => setZodiacMonth(Number(event.target.value))}
-                  className="min-h-11 rounded-xl border border-stone-300 bg-cream px-3 text-sm text-ink outline-none focus:border-ink"
+                  className="min-h-11 border border-ink/15 bg-cream px-3 text-sm text-ink outline-none focus:border-ink"
                 >
                   {monthOptions.map((month) => (
                     <option key={month} value={month}>
@@ -126,10 +126,10 @@ export function FinderForm() {
                   key={colorValue}
                   type="button"
                   onClick={() => setColor(colorValue)}
-                  className={`min-h-11 rounded-xl border px-3 text-sm font-semibold transition ${
+                  className={`min-h-11 border px-3 text-sm font-semibold transition ${
                     color === colorValue
-                      ? "border-ink bg-ink text-white"
-                      : "border-stone-300 bg-cream text-ink/72 hover:border-ink"
+                      ? "border-ink bg-ink text-porcelain"
+                      : "border-ink/15 bg-cream text-ink/72 hover:border-ink"
                   }`}
                 >
                   {colorLabels[colorValue] ?? colorValue}
@@ -144,7 +144,7 @@ export function FinderForm() {
               <select
                 value={birthdayMonth}
                 onChange={(event) => setBirthdayMonth(Number(event.target.value))}
-                className="min-h-11 rounded-xl border border-stone-300 bg-cream px-3 text-sm text-ink outline-none focus:border-ink"
+                className="min-h-11 border border-ink/15 bg-cream px-3 text-sm text-ink outline-none focus:border-ink"
               >
                 {monthOptions.map((month) => (
                   <option key={month} value={month}>
@@ -156,19 +156,19 @@ export function FinderForm() {
           ) : null}
         </div>
 
-        <p className="mt-6 rounded-2xl bg-cream p-4 text-sm leading-6 text-ink/62">
-          這不是設計器，也不會生成新款式；系統只會依照你選擇的條件，推薦目前已上架的固定設計款。
+        <p className="mt-6 bg-cream p-4 text-sm leading-6 text-ink/62">
+          這是一段 aura guide：用個人線索找到最貼近當下生活狀態的精選款式。
         </p>
       </aside>
 
       <section>
-        <div className="mb-6 rounded-2xl border border-stone-200 bg-white p-5">
-          <h2 className="text-xl font-semibold text-ink">推薦結果</h2>
+        <div className="mb-6 border border-ink/10 bg-porcelain p-5">
+          <h2 className="font-serif text-3xl text-ink">Recommended pieces</h2>
           <p className="mt-2 text-sm leading-6 text-ink/62">
-            以下為根據你選擇的條件推薦的固定設計款。每款手串皆為現有款式，不提供客製化修改。
+            以下依照你的線索推薦最接近的情緒配色與佩戴狀態。
           </p>
           {!exact ? (
-            <p className="mt-3 rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
+            <p className="mt-3 bg-bone px-4 py-3 text-sm font-medium text-ink/70">
               目前沒有完全對應的款式，以下是相近風格推薦。
             </p>
           ) : null}

@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: light;
-  background: #fff9f0;
+  background: #fbf8f3;
 }
 
 * {
@@ -17,11 +17,8 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 16% 12%, rgba(246, 202, 214, 0.34), transparent 28rem),
-    radial-gradient(circle at 86% 16%, rgba(216, 207, 246, 0.35), transparent 30rem),
-    linear-gradient(180deg, #fff9f0 0%, #fffdf8 48%, #f8f1e7 100%);
-  color: #2f2f35;
+  background: linear-gradient(180deg, #fbf8f3 0%, #f5f0ea 46%, #ebe3d8 100%);
+  color: #2b2522;
 }
 
 a {
@@ -29,6 +26,10 @@ a {
 }
 
 ::selection {
-  background: #f6cad6;
-  color: #2f2f35;
+  background: #c8ada5;
+  color: #2b2522;
+}
+
+img {
+  max-width: 100%;
 }

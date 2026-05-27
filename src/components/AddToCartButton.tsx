@@ -27,13 +27,13 @@ export function AddToCartButton({
         setAdded(true);
         window.setTimeout(() => setAdded(false), 1200);
       }}
-      className={`inline-flex min-h-11 items-center justify-center rounded-full px-5 text-sm font-semibold transition ${
+      className={`inline-flex min-h-11 items-center justify-center px-5 text-sm font-semibold transition ${
         soldOut
           ? "cursor-not-allowed bg-stone-200 text-stone-500"
-          : "bg-ink text-white shadow-soft hover:-translate-y-0.5 hover:bg-black"
+          : "bg-ink text-porcelain shadow-soft hover:-translate-y-0.5 hover:bg-brown"
       } ${className}`}
     >
-      {soldOut ? "已售完" : added ? "已加入購物車" : "加入購物車"}
+      {soldOut ? "Sold out" : added ? "Added" : "Add"}
     </button>
   );
 }

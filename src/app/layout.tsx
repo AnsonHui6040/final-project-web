@@ -8,11 +8,11 @@ import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: {
-    default: "Luma Beads｜星座月份、幸運色與生日推薦手串",
+    default: "Luma Beads｜Handcrafted Aura Jewelry",
     template: "%s｜Luma Beads"
   },
   description:
-    "Luma Beads 提供星座月份、幸運色、生日推薦與限量祈福系列手串。所有商品皆為固定設計款，適合作為日常配戴與生日禮物。"
+    "Luma Beads 是結合情緒象徵、個人特質與手工質感的 premium indie jewelry brand，提供日常佩戴與送禮儀式感。"
 };
 
 export default function RootLayout({

@@ -56,50 +56,50 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Link
           href="/products"
-          className="mb-6 inline-flex min-h-10 items-center rounded-full border border-stone-300 bg-white px-4 text-sm font-semibold text-ink/70 transition hover:border-ink hover:text-ink"
+          className="mb-6 inline-flex min-h-10 items-center border border-ink/15 bg-porcelain px-4 text-sm font-semibold text-ink/70 transition hover:border-ink hover:text-ink"
         >
-          返回商品列表
+          Back to curated shop
         </Link>
 
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-          <ProductImage product={product} className="aspect-[4/3] shadow-soft lg:aspect-square" />
+          <ProductImage product={product} className="aspect-[4/3] shadow-editorial lg:aspect-square" variant="editorial" />
 
-          <div className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
-            <div className="mb-4 flex flex-wrap gap-2 text-xs">
-              <span className="rounded-full bg-stone-100 px-3 py-1 font-medium text-ink/68">
+          <div className="border border-ink/10 bg-porcelain p-6 shadow-sm sm:p-8">
+            <div className="mb-4 flex flex-wrap gap-2 text-xs uppercase tracking-[0.18em] text-ink/50">
+              <span className="border border-ink/10 px-3 py-1 font-medium">
                 {seriesLabels[product.series]}
               </span>
-              <span className="rounded-full bg-sage/40 px-3 py-1 font-medium text-emerald-900">
+              <span className="border border-ink/10 px-3 py-1 font-medium">
                 {stockLabels[product.stockStatus]}
               </span>
               {product.isLimited ? (
-                <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-800">
+                <span className="border border-rose-300 px-3 py-1 font-semibold text-rose-700">
                   限量 {product.limitedQuantity} 件
                 </span>
               ) : null}
             </div>
 
-            <h1 className="text-2xl font-semibold leading-tight text-ink sm:text-4xl">
+            <h1 className="font-serif text-4xl leading-tight text-ink sm:text-6xl">
               {product.name}
             </h1>
-            <p className="mt-3 text-2xl font-semibold text-ink sm:mt-4 sm:text-3xl">
+            <p className="mt-4 text-base font-semibold text-ink/58">
               {formatPrice(product.price)}
             </p>
 
             <dl className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl bg-cream p-4">
+              <div className="bg-cream p-4">
                 <dt className="text-xs font-semibold text-ink/50">顏色</dt>
                 <dd className="mt-1 font-semibold text-ink">
                   {colorLabels[product.color] ?? product.color}
                 </dd>
               </div>
-              <div className="rounded-2xl bg-cream p-4">
-                <dt className="text-xs font-semibold text-ink/50">適合對象</dt>
+              <div className="bg-cream p-4">
+                <dt className="text-xs font-semibold text-ink/50">生活線索</dt>
                 <dd className="mt-1 font-semibold text-ink">
                   {product.tags.slice(0, 2).join("、")}
                 </dd>
               </div>
-              <div className="rounded-2xl bg-cream p-4 sm:col-span-2">
+              <div className="bg-cream p-4 sm:col-span-2">
                 <dt className="text-xs font-semibold text-ink/50">象徵意義</dt>
                 <dd className="mt-1 font-semibold text-ink">{product.meaning}</dd>
               </div>
@@ -122,16 +122,16 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
               />
               <Link
                 href="/cart"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-stone-300 px-7 text-base font-semibold text-ink transition hover:border-ink"
+                className="inline-flex min-h-12 items-center justify-center border border-ink/15 px-7 text-base font-semibold text-ink transition hover:border-ink"
               >
                 查看購物車
               </Link>
             </div>
 
-            <div className="mt-7 rounded-2xl border border-stone-200 bg-cream p-4 text-sm leading-6 text-ink/62">
-              <p className="font-semibold text-ink">注意事項</p>
+            <div className="mt-7 border border-ink/10 bg-cream p-4 text-sm leading-6 text-ink/62">
+              <p className="font-semibold text-ink">Aura note</p>
               <p className="mt-2">
-                本產品為固定設計款，不提供客製化修改。顏色與象徵意義僅作為風格與情感參考，不代表任何實際效果保證。
+                顏色與象徵意義作為風格、情緒與送禮線索，不代表任何實際效果保證。
               </p>
             </div>
           </div>

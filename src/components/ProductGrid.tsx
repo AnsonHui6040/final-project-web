@@ -4,7 +4,7 @@ import { ProductCard } from "./ProductCard";
 export function ProductGrid({ products }: { products: Product[] }) {
   if (products.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-stone-300 bg-white/70 p-8 text-center text-ink/62">
+      <div className="border border-dashed border-ink/20 bg-porcelain/70 p-8 text-center text-ink/62">
         目前沒有符合條件的商品。
       </div>
     );

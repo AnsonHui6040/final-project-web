@@ -3,17 +3,17 @@ import { ProductsBrowser } from "@/components/ProductsBrowser";
 import { SectionTitle } from "@/components/SectionTitle";
 
 export const metadata: Metadata = {
-  title: "手串商品｜Luma Beads",
+  title: "Curated Shop｜Luma Beads",
   description:
-    "瀏覽 Luma Beads 星座月份、幸運色、生日推薦與限量祈福系列手串商品。"
+    "瀏覽 Luma Beads 以情緒狀態、個人特質與送禮儀式設計的精選手串。"
 };
 
 export default function ProductsPage() {
   return (
     <section className="py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionTitle eyebrow="PRODUCTS" title="手串商品">
-          從星座月份、幸運色、生日推薦與限量祈福系列中，選擇已設計好的日常手串。
+        <SectionTitle eyebrow="CURATED SHOP" title="Pieces for the state you want to carry">
+          從生日、星座、顏色與當下心情開始，選擇一件能進入日常穿搭的情緒護符。
         </SectionTitle>
         <div className="mt-9">
           <ProductsBrowser />
