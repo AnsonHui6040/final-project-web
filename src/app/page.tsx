@@ -7,6 +7,7 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { ProductImage } from "@/components/ProductImage";
 import { SectionTitle } from "@/components/SectionTitle";
 import { useI18n } from "@/lib/i18n";
+import { publicAsset } from "@/lib/paths";
 
 const states = [
   {
@@ -62,7 +63,7 @@ export default function HomePage() {
     <>
       <section className="relative isolate overflow-hidden bg-ink text-porcelain">
         <Image
-          src="/images/luma-editorial-hero.png"
+          src={publicAsset("/images/luma-editorial-hero.png")}
           alt="配戴 Luma Beads 手串的晨光生活情境"
           fill
           priority
@@ -165,7 +166,7 @@ export default function HomePage() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
           <div className="relative min-h-[440px] overflow-hidden">
             <Image
-              src="/images/luma-unboxing-ritual.png"
+              src={publicAsset("/images/luma-unboxing-ritual.png")}
               alt="Luma Beads 手串開箱、束口袋與 aura card"
               fill
               sizes="(min-width: 1024px) 48vw, 100vw"
@@ -215,7 +216,7 @@ export default function HomePage() {
           <div className="grid gap-5 sm:grid-cols-[0.82fr_1fr]">
             <div className="relative min-h-[520px] overflow-hidden">
               <Image
-                src="/images/luma-lifestyle-editorial.png"
+                src={publicAsset("/images/luma-lifestyle-editorial.png")}
                 alt="咖啡店窗邊配戴 Luma Beads 手串的生活情境"
                 fill
                 sizes="(min-width: 1024px) 34vw, 100vw"

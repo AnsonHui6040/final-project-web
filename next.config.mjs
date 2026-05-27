@@ -6,6 +6,9 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isGithubActions ? "/final-project-web" : ""
+  },
   basePath: isGithubActions ? "/final-project-web" : "",
   assetPrefix: isGithubActions ? "/final-project-web/" : ""
 };
