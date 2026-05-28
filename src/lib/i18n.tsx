@@ -8,8 +8,7 @@ import {
   useMemo,
   useState
 } from "react";
-import type { Product } from "@/types/product";
-import type { ProductSeries } from "@/types/product";
+import type { Product, ProductSeries, StockStatus } from "@/types/product";
 
 export type Locale = "zh" | "en" | "th" | "id";
 
@@ -26,7 +25,10 @@ type I18nContextValue = {
   t: (key: keyof typeof dictionaries.zh) => string;
   productText: (product: Product) => ProductCopy;
   seriesLabel: (series: ProductSeries) => string;
+  stockLabel: (status: StockStatus) => string;
   colorLabel: (color: string) => string;
+  zodiacLabel: (zodiac: string) => string;
+  monthLabel: (month: number) => string;
 };
 
 export const localeOptions: { value: Locale; label: string; short: string }[] = [
@@ -115,7 +117,77 @@ const dictionaries = {
     explore: "探索",
     note: "提醒",
     footerNoteA: "星座、幸運色與生日推薦是情緒與風格線索，不代表實際效果保證。",
-    footerNoteB: "部分款式為精選現貨，客製需求可作為下一階段品牌功能延伸。"
+    footerNoteB: "部分款式為精選現貨，客製需求可作為下一階段品牌功能延伸。",
+    heroAlt: "配戴 Luma Beads 手串的晨光生活情境",
+    philosophyBodyA: "我們不把手串做成誇張的開運物，也不把它變成大量複製的飾品。每一款都從可搭配、可送禮、可被記住的生活場景出發。",
+    philosophyBodyB: "你選的不是一串珠子，而是今天想帶出門的狀態：安定、界線、溫柔、新開始，或一個只想送給對方的祝福。",
+    unboxingAlt: "Luma Beads 手串開箱、束口袋與 aura card",
+    ritualOne: "依照生日、星座、顏色與當下狀態找出象徵線索",
+    ritualTwo: "在既有精選款中選擇最貼近生活場景的配色",
+    ritualThree: "以束口袋、描圖紙與 aura card 完成送禮儀式",
+    editorialOne: "上課前的冷白晨光",
+    editorialTwo: "通勤包裡的柔軟布料",
+    editorialThree: "咖啡店窗邊的安靜休息",
+    editorialFour: "送出前最後一次整理卡片",
+    lifestyleAlt: "咖啡店窗邊配戴 Luma Beads 手串的生活情境",
+    auraNoteLine: "給那些溫柔仍然需要結構的日子，一個安靜的象徵。",
+    finderEyebrow: "AURA GUIDE",
+    finderTitle: "選擇今天想帶著的狀態",
+    finderBody: "從個人線索開始，找到適合通勤、考試、送禮或新階段的情緒象徵。",
+    finderLoading: "載入推薦中...",
+    tabZodiac: "星座",
+    tabAura: "色調",
+    tabBirthday: "生日",
+    chooseZodiac: "選擇星座",
+    chooseBirthMonthOptional: "或選擇出生月份",
+    birthMonth: "出生月份",
+    finderHint: "這是一段 aura guide：用個人線索找到最貼近當下生活狀態的精選款式。",
+    recommendedPieces: "推薦款式",
+    finderResultBody: "以下依照你的線索推薦最接近的情緒配色與佩戴狀態。",
+    finderFallback: "目前沒有完全對應的款式，以下是相近風格推薦。",
+    backToShop: "返回精選商品",
+    limitedPieces: "限量 {count} 件",
+    color: "顏色",
+    lifestyleCues: "生活線索",
+    meaning: "象徵意義",
+    limitedProductNote: "此款為限量製作，售完不一定補貨，適合作為送禮祝福或重要時刻的紀念。",
+    viewCart: "查看購物車",
+    productAuraNote: "顏色與象徵意義作為風格、情緒與送禮線索，不代表任何實際效果保證。",
+    relatedPieces: "同系列推薦",
+    aboutEyebrow: "BRAND STORY",
+    aboutTitle: "Quiet symbols for everyday wear",
+    aboutIntro: "不是迷信，也不是大量複製的飾品，而是把每天的心情、顏色與祝福整理成可佩戴的存在感。",
+    aboutBodyA: "Luma Beads 是一個以情緒象徵與日常穿搭為核心的年輕飾品品牌。我們希望手串不只是搭配衣服的小物，也能成為生日禮物、生活轉換期的紀念，或某一天出門前給自己的提醒。",
+    aboutBodyB: "每一款手串都從顏色、珠材比例、佩戴情境與送禮儀式出發。你可以透過星座、幸運色或生日月份找到推薦款式，讓選擇從個人線索開始，回到真實生活。",
+    aboutBlockOneTitle: "Emotional comfort",
+    aboutBlockOneText: "手串小、輕、好搭配，卻能在每天出門時給自己一個清楚的狀態提醒。它不需要很盛大，也能有一點儀式感。",
+    aboutBlockTwoTitle: "Personal aura symbolism",
+    aboutBlockTwoText: "星座、顏色與生日是可被理解的個人線索，也很適合作為送禮起點。它們提供的是情緒方向，不是效果承諾。",
+    aboutBlockThreeTitle: "Handcrafted curation",
+    aboutBlockThreeText: "精選款式讓每一款能保持完整配色、比例與佩戴氣質。客製化會作為品牌下一階段的高觸感服務延伸。",
+    aboutCtaTitle: "讓選擇變安靜，讓禮物更有感",
+    aboutCtaBody: "我們不承諾任何實際功效，但相信一件有意義的小物，可以陪你記得今天想成為什麼樣子。",
+    findYourPiece: "找你的手串",
+    limitedTitle: "限量祈福系列",
+    limitedBody: "祈福系列以祝福、紀念與陪伴為設計概念。每一款皆為限量製作，適合送給自己，也適合作為重要時刻的禮物。",
+    limitedCardTitle: "限量製作，售完不一定補貨",
+    limitedCardBody: "我們不承諾任何實際功效，但相信一件有意義的小物，可以成為每天的提醒與陪伴。這個系列更重視情感價值、收藏感與送禮時的心意。",
+    limitedPillOne: "象徵祝福",
+    limitedPillTwo: "作為提醒",
+    limitedPillThree: "重要時刻禮物",
+    limitedInfoOneTitle: "送禮建議",
+    limitedInfoOneText: "適合畢業、考試、旅行、轉職、搬家或生日後的新階段。",
+    limitedInfoTwoTitle: "商品故事",
+    limitedInfoTwoText: "每款以一個祝福概念出發，搭配耐看的日常配色。",
+    limitedInfoThreeTitle: "購買提醒",
+    limitedInfoThreeText: "限量數量會顯示於商品頁，售完後不一定安排補貨。",
+    preorder: "預購",
+    checkoutThanks: "感謝你的喜歡",
+    checkoutBody: "正式金流開放前，請透過以下方式完成預購。目前為預購測試階段，請透過 Instagram / LINE / Google Form 完成下單。",
+    instagramOrder: "Instagram 私訊下單",
+    lineOrder: "LINE 下單",
+    googleFormOrder: "Google Form 預購",
+    continueShopping: "繼續逛商品"
   },
   en: {
     language: "Language",
@@ -195,7 +267,77 @@ const dictionaries = {
     explore: "Explore",
     note: "Note",
     footerNoteA: "Zodiac, lucky colors and birthday cues are emotional style references, not effect guarantees.",
-    footerNoteB: "Some pieces are curated ready-to-wear; custom requests can become a later brand extension."
+    footerNoteB: "Some pieces are curated ready-to-wear; custom requests can become a later brand extension.",
+    heroAlt: "Morning lifestyle scene wearing a Luma Beads bracelet",
+    philosophyBodyA: "We do not turn bracelets into exaggerated lucky objects or mass-produced accessories. Each piece starts from wearability, gifting and a scene worth remembering.",
+    philosophyBodyB: "You are not choosing a strand of beads, but the state you want to carry today: calm, boundary, tenderness, new beginnings, or a blessing meant for someone else.",
+    unboxingAlt: "Luma Beads bracelet unboxing with pouch and aura card",
+    ritualOne: "Find symbolic cues through birthday, zodiac, color and current state",
+    ritualTwo: "Choose a curated palette that fits a real lifestyle scene",
+    ritualThree: "Finish the gifting ritual with pouch, tracing paper and aura card",
+    editorialOne: "Cool morning light before class",
+    editorialTwo: "Soft fabric inside a commuter bag",
+    editorialThree: "A quiet pause beside a cafe window",
+    editorialFour: "One last card arrangement before gifting",
+    lifestyleAlt: "Lifestyle scene wearing a Luma Beads bracelet beside a cafe window",
+    auraNoteLine: "A quiet symbol for days when softness still needs structure.",
+    finderEyebrow: "AURA GUIDE",
+    finderTitle: "Choose the state you want to carry",
+    finderBody: "Start with personal cues, then find an emotional symbol for commuting, exams, gifting or a new chapter.",
+    finderLoading: "Loading recommendations...",
+    tabZodiac: "Zodiac",
+    tabAura: "Aura",
+    tabBirthday: "Birthday",
+    chooseZodiac: "Choose zodiac",
+    chooseBirthMonthOptional: "Or choose birth month",
+    birthMonth: "Birth month",
+    finderHint: "This aura guide uses personal cues to find curated pieces closest to your current life state.",
+    recommendedPieces: "Recommended pieces",
+    finderResultBody: "Recommendations are matched to your cues, emotional palette and wearable state.",
+    finderFallback: "No exact match yet. Here are similar pieces in a close mood.",
+    backToShop: "Back to curated shop",
+    limitedPieces: "Limited to {count} pieces",
+    color: "Color",
+    lifestyleCues: "Lifestyle cues",
+    meaning: "Meaning",
+    limitedProductNote: "This limited piece may not restock after selling out, suited for gifting or marking an important moment.",
+    viewCart: "View cart",
+    productAuraNote: "Colors and symbolism are style, emotion and gifting cues, not effect guarantees.",
+    relatedPieces: "Related pieces",
+    aboutEyebrow: "BRAND STORY",
+    aboutTitle: "Quiet symbols for everyday wear",
+    aboutIntro: "Not superstition, not mass-produced decoration, but daily moods, colors and blessings made wearable.",
+    aboutBodyA: "Luma Beads is a young jewelry brand centered on emotional symbolism and daily styling. A bracelet can be more than an accessory: a birthday gift, a marker for transition, or a reminder before leaving home.",
+    aboutBodyB: "Every piece begins with color, bead proportion, wearing scenes and gifting ritual. Zodiac, lucky colors and birthday months help the choice begin from personal cues and return to real life.",
+    aboutBlockOneTitle: "Emotional comfort",
+    aboutBlockOneText: "Bracelets are small, light and easy to style, yet they can give a clear state reminder each time you leave home. They do not need to feel grand to carry ritual.",
+    aboutBlockTwoTitle: "Personal aura symbolism",
+    aboutBlockTwoText: "Zodiac, color and birthday are understandable personal cues and useful gifting starts. They offer emotional direction, not promised effects.",
+    aboutBlockThreeTitle: "Handcrafted curation",
+    aboutBlockThreeText: "Curated ready-to-wear pieces keep every palette, proportion and wearing mood complete. Customization can become a higher-touch extension later.",
+    aboutCtaTitle: "Make choosing quieter, and gifting more felt",
+    aboutCtaBody: "We do not promise effects, but believe a meaningful small object can help you remember who you want to be today.",
+    findYourPiece: "Find your piece",
+    limitedTitle: "Limited Blessing Collection",
+    limitedBody: "The blessing collection is designed around care, memory and companionship. Each piece is made in limited quantities for yourself or meaningful gifting.",
+    limitedCardTitle: "Limited quantity, restock not guaranteed",
+    limitedCardBody: "We do not promise effects, but believe a meaningful small object can become a daily reminder and companion. This collection focuses on sentiment, collectability and gifting intention.",
+    limitedPillOne: "Symbolic blessing",
+    limitedPillTwo: "Daily reminder",
+    limitedPillThree: "Important moment gift",
+    limitedInfoOneTitle: "Gifting guide",
+    limitedInfoOneText: "Suited for graduation, exams, travel, career shifts, moving, birthdays and new chapters.",
+    limitedInfoTwoTitle: "Product story",
+    limitedInfoTwoText: "Each piece starts from a blessing concept and a wearable daily palette.",
+    limitedInfoThreeTitle: "Purchase note",
+    limitedInfoThreeText: "Limited quantities appear on product pages. Sold-out pieces may not be restocked.",
+    preorder: "Preorder",
+    checkoutThanks: "Thank you for liking Luma Beads",
+    checkoutBody: "Before official payment opens, please complete preorder through one of the channels below. This MVP uses Instagram, LINE and Google Form order placeholders.",
+    instagramOrder: "Order via Instagram DM",
+    lineOrder: "Order via LINE",
+    googleFormOrder: "Google Form preorder",
+    continueShopping: "Continue shopping"
   },
   th: {
     language: "ภาษา",
@@ -275,7 +417,77 @@ const dictionaries = {
     explore: "สำรวจ",
     note: "หมายเหตุ",
     footerNoteA: "ราศี สีมงคล และวันเกิดเป็นเบาะแสด้านอารมณ์และสไตล์ ไม่ใช่การรับประกันผลลัพธ์",
-    footerNoteB: "บางชิ้นเป็นสินค้าคัดสรรพร้อมส่ง ส่วนการสั่งทำเฉพาะอาจเป็นบริการในอนาคต"
+    footerNoteB: "บางชิ้นเป็นสินค้าคัดสรรพร้อมส่ง ส่วนการสั่งทำเฉพาะอาจเป็นบริการในอนาคต",
+    heroAlt: "ภาพไลฟ์สไตล์ยามเช้าขณะสวมสร้อยข้อมือ Luma Beads",
+    philosophyBodyA: "เราไม่ได้ทำสร้อยข้อมือให้เป็นวัตถุนำโชคที่เกินจริง หรือเครื่องประดับผลิตจำนวนมาก แต่เริ่มจากการใส่ได้จริง การให้ของขวัญ และฉากชีวิตที่น่าจดจำ",
+    philosophyBodyB: "คุณไม่ได้เลือกแค่ลูกปัดหนึ่งเส้น แต่เลือกสภาวะที่อยากพกไปวันนี้: สงบ ขอบเขต อ่อนโยน แสงใหม่ หรือคำอวยพรสำหรับใครบางคน",
+    unboxingAlt: "การเปิดกล่องสร้อยข้อมือ Luma Beads พร้อมถุงผ้าและการ์ดออร่า",
+    ritualOne: "หาเบาะแสสัญลักษณ์จากวันเกิด ราศี สี และสภาวะตอนนี้",
+    ritualTwo: "เลือกโทนสีคัดสรรที่ใกล้กับฉากชีวิตจริง",
+    ritualThree: "จบพิธีการให้ของขวัญด้วยถุงผ้า กระดาษโปร่ง และการ์ดออร่า",
+    editorialOne: "แสงเช้าเย็นๆ ก่อนเข้าเรียน",
+    editorialTwo: "ผ้านุ่มในกระเป๋าเดินทางประจำวัน",
+    editorialThree: "ช่วงพักเงียบๆ ริมหน้าต่างคาเฟ่",
+    editorialFour: "จัดการ์ดครั้งสุดท้ายก่อนส่งต่อ",
+    lifestyleAlt: "ภาพไลฟ์สไตล์ริมหน้าต่างคาเฟ่ขณะสวม Luma Beads",
+    auraNoteLine: "สัญลักษณ์เงียบๆ สำหรับวันที่ความอ่อนโยนยังต้องมีโครงสร้าง",
+    finderEyebrow: "AURA GUIDE",
+    finderTitle: "เลือกสภาวะที่อยากพกไปวันนี้",
+    finderBody: "เริ่มจากเบาะแสส่วนตัว แล้วหาเครื่องหมายทางอารมณ์สำหรับการเดินทาง สอบ ให้ของขวัญ หรือบทใหม่",
+    finderLoading: "กำลังโหลดคำแนะนำ...",
+    tabZodiac: "ราศี",
+    tabAura: "ออร่า",
+    tabBirthday: "วันเกิด",
+    chooseZodiac: "เลือกราศี",
+    chooseBirthMonthOptional: "หรือเลือกเดือนเกิด",
+    birthMonth: "เดือนเกิด",
+    finderHint: "Aura guide นี้ใช้เบาะแสส่วนตัวเพื่อค้นหาชิ้นงานที่ใกล้กับสภาวะชีวิตตอนนี้มากที่สุด",
+    recommendedPieces: "ชิ้นงานแนะนำ",
+    finderResultBody: "คำแนะนำอ้างอิงจากเบาะแส โทนอารมณ์ และสภาวะที่สวมใส่ได้",
+    finderFallback: "ยังไม่มีชิ้นที่ตรงทั้งหมด นี่คือชิ้นที่ใกล้อารมณ์เดียวกัน",
+    backToShop: "กลับไปสินค้าคัดสรร",
+    limitedPieces: "ลิมิเต็ด {count} ชิ้น",
+    color: "สี",
+    lifestyleCues: "เบาะแสไลฟ์สไตล์",
+    meaning: "ความหมาย",
+    limitedProductNote: "ชิ้นลิมิเต็ดนี้อาจไม่เติมสต็อกหลังขายหมด เหมาะสำหรับการให้ของขวัญหรือจดจำช่วงเวลาสำคัญ",
+    viewCart: "ดูตะกร้า",
+    productAuraNote: "สีและสัญลักษณ์เป็นเบาะแสด้านสไตล์ อารมณ์ และการให้ของขวัญ ไม่ใช่การรับประกันผลลัพธ์",
+    relatedPieces: "ชิ้นงานที่เกี่ยวข้อง",
+    aboutEyebrow: "เรื่องราวแบรนด์",
+    aboutTitle: "สัญลักษณ์เงียบๆ สำหรับทุกวัน",
+    aboutIntro: "ไม่ใช่ความงมงาย ไม่ใช่เครื่องประดับผลิตจำนวนมาก แต่คืออารมณ์ สี และคำอวยพรประจำวันในรูปแบบที่สวมใส่ได้",
+    aboutBodyA: "Luma Beads คือแบรนด์เครื่องประดับรุ่นใหม่ที่เน้นสัญลักษณ์ทางอารมณ์และการแต่งตัวในชีวิตประจำวัน สร้อยข้อมือจึงเป็นได้ทั้งของขวัญวันเกิด เครื่องหมายของช่วงเปลี่ยนผ่าน หรือคำเตือนใจเล็กๆ ก่อนออกจากบ้าน",
+    aboutBodyB: "ทุกชิ้นเริ่มจากสี สัดส่วนลูกปัด ฉากการสวมใส่ และพิธีการให้ของขวัญ ราศี สีมงคล และเดือนเกิดช่วยให้การเลือกเริ่มจากเบาะแสส่วนตัวและกลับสู่ชีวิตจริง",
+    aboutBlockOneTitle: "ความสบายใจ",
+    aboutBlockOneText: "สร้อยข้อมือเล็ก เบา และเข้ากับชุดง่าย แต่ให้สภาวะที่ชัดเจนทุกครั้งก่อนออกจากบ้าน ไม่ต้องยิ่งใหญ่ก็มีพิธีกรรมเล็กๆ ได้",
+    aboutBlockTwoTitle: "สัญลักษณ์ออร่าส่วนตัว",
+    aboutBlockTwoText: "ราศี สี และวันเกิดเป็นเบาะแสส่วนตัวที่เข้าใจง่าย และเหมาะเป็นจุดเริ่มของของขวัญ สิ่งเหล่านี้ให้ทิศทางทางอารมณ์ ไม่ใช่คำสัญญาเรื่องผลลัพธ์",
+    aboutBlockThreeTitle: "การคัดสรรแบบแฮนด์เมด",
+    aboutBlockThreeText: "ชิ้นงานคัดสรรช่วยให้สี สัดส่วน และอารมณ์การสวมใส่สมบูรณ์ ส่วนงานสั่งทำอาจพัฒนาเป็นบริการในอนาคต",
+    aboutCtaTitle: "ทำให้การเลือกเงียบลง และของขวัญรู้สึกมากขึ้น",
+    aboutCtaBody: "เราไม่สัญญาผลลัพธ์ แต่เชื่อว่าสิ่งเล็กๆ ที่มีความหมายช่วยให้คุณจำได้ว่าวันนี้อยากเป็นใคร",
+    findYourPiece: "หาชิ้นของคุณ",
+    limitedTitle: "คอลเลกชันพรลิมิเต็ด",
+    limitedBody: "คอลเลกชันพรออกแบบจากการดูแล ความทรงจำ และการอยู่เคียงข้าง ทุกชิ้นผลิตจำนวนจำกัด เหมาะให้ตัวเองหรือเป็นของขวัญสำคัญ",
+    limitedCardTitle: "จำนวนจำกัด อาจไม่เติมสต็อก",
+    limitedCardBody: "เราไม่สัญญาผลลัพธ์ แต่เชื่อว่าสิ่งเล็กๆ ที่มีความหมายสามารถเป็นเครื่องเตือนใจและเพื่อนร่วมวัน คอลเลกชันนี้เน้นคุณค่าทางอารมณ์ การสะสม และความตั้งใจในการให้",
+    limitedPillOne: "พรเชิงสัญลักษณ์",
+    limitedPillTwo: "เครื่องเตือนใจ",
+    limitedPillThree: "ของขวัญช่วงสำคัญ",
+    limitedInfoOneTitle: "คำแนะนำของขวัญ",
+    limitedInfoOneText: "เหมาะกับเรียนจบ สอบ เดินทาง เปลี่ยนงาน ย้ายบ้าน วันเกิด และบทใหม่",
+    limitedInfoTwoTitle: "เรื่องราวสินค้า",
+    limitedInfoTwoText: "แต่ละชิ้นเริ่มจากแนวคิดคำอวยพรและโทนสีประจำวันที่ใส่ง่าย",
+    limitedInfoThreeTitle: "หมายเหตุการซื้อ",
+    limitedInfoThreeText: "จำนวนลิมิเต็ดจะแสดงในหน้าสินค้า สินค้าขายหมดอาจไม่เติมสต็อก",
+    preorder: "พรีออเดอร์",
+    checkoutThanks: "ขอบคุณที่ชอบ Luma Beads",
+    checkoutBody: "ก่อนเปิดระบบชำระเงินจริง กรุณาพรีออเดอร์ผ่านช่องทางด้านล่าง ช่วง MVP นี้ใช้ Instagram, LINE และ Google Form เป็นช่องทางตัวอย่าง",
+    instagramOrder: "สั่งผ่าน Instagram DM",
+    lineOrder: "สั่งผ่าน LINE",
+    googleFormOrder: "พรีออเดอร์ผ่าน Google Form",
+    continueShopping: "เลือกชมสินค้าต่อ"
   },
   id: {
     language: "Bahasa",
@@ -336,7 +548,7 @@ const dictionaries = {
     auraNote: "Aura note",
     guideTitle: "Keadaan apa yang ingin kamu bawa hari ini?",
     guideBody: "Mulai dari ulang tahun, zodiak, dan warna, lalu kembali ke hidup nyata: ujian, komuter, hadiah, fase karier, atau merawat diri.",
-    productPageTitle: "Pieces for the state you want to carry",
+    productPageTitle: "Piece untuk keadaan yang ingin kamu bawa",
     productPageBody: "Pilih simbol emosional yang bisa dikenakan melalui ulang tahun, zodiak, warna, dan mood saat ini.",
     cartEmptyTitle: "Keranjang masih kosong",
     cartEmptyBody: "Lihat katalog kurasi dan temukan piece yang ingin kamu bawa hari ini.",
@@ -355,7 +567,77 @@ const dictionaries = {
     explore: "Jelajahi",
     note: "Catatan",
     footerNoteA: "Zodiak, warna keberuntungan, dan ulang tahun adalah referensi emosi dan gaya, bukan jaminan efek.",
-    footerNoteB: "Beberapa produk adalah ready-to-wear kurasi; custom request dapat menjadi fitur brand berikutnya."
+    footerNoteB: "Beberapa produk adalah ready-to-wear kurasi; custom request dapat menjadi fitur brand berikutnya.",
+    heroAlt: "Adegan pagi memakai gelang Luma Beads",
+    philosophyBodyA: "Kami tidak menjadikan gelang sebagai benda keberuntungan berlebihan atau aksesori produksi massal. Setiap piece dimulai dari mudah dikenakan, pantas dihadiahkan, dan punya adegan hidup yang ingin diingat.",
+    philosophyBodyB: "Kamu tidak memilih seuntai manik, tetapi keadaan yang ingin dibawa hari ini: tenang, batas diri, kelembutan, awal baru, atau doa untuk seseorang.",
+    unboxingAlt: "Unboxing gelang Luma Beads dengan pouch dan aura card",
+    ritualOne: "Temukan isyarat simbolik lewat ulang tahun, zodiak, warna, dan keadaan saat ini",
+    ritualTwo: "Pilih palet kurasi yang dekat dengan adegan hidup nyata",
+    ritualThree: "Lengkapi ritual hadiah dengan pouch, kertas tracing, dan aura card",
+    editorialOne: "Cahaya pagi dingin sebelum kelas",
+    editorialTwo: "Kain lembut di dalam tas komuter",
+    editorialThree: "Jeda tenang di sisi jendela kafe",
+    editorialFour: "Merapikan kartu terakhir sebelum diberikan",
+    lifestyleAlt: "Adegan memakai Luma Beads di dekat jendela kafe",
+    auraNoteLine: "Simbol tenang untuk hari ketika kelembutan tetap membutuhkan struktur.",
+    finderEyebrow: "AURA GUIDE",
+    finderTitle: "Pilih keadaan yang ingin kamu bawa",
+    finderBody: "Mulai dari isyarat personal, lalu temukan simbol emosional untuk komuter, ujian, hadiah, atau bab baru.",
+    finderLoading: "Memuat rekomendasi...",
+    tabZodiac: "Zodiak",
+    tabAura: "Aura",
+    tabBirthday: "Ulang tahun",
+    chooseZodiac: "Pilih zodiak",
+    chooseBirthMonthOptional: "Atau pilih bulan lahir",
+    birthMonth: "Bulan lahir",
+    finderHint: "Aura guide ini memakai isyarat personal untuk menemukan piece kurasi yang paling dekat dengan keadaan hidupmu saat ini.",
+    recommendedPieces: "Piece rekomendasi",
+    finderResultBody: "Rekomendasi dicocokkan dengan isyarat, palet emosi, dan keadaan yang bisa dikenakan.",
+    finderFallback: "Belum ada yang benar-benar cocok. Ini piece dengan mood yang dekat.",
+    backToShop: "Kembali ke katalog kurasi",
+    limitedPieces: "Terbatas {count} pcs",
+    color: "Warna",
+    lifestyleCues: "Isyarat gaya hidup",
+    meaning: "Makna",
+    limitedProductNote: "Piece terbatas ini mungkin tidak restock setelah habis, cocok untuk hadiah atau penanda momen penting.",
+    viewCart: "Lihat keranjang",
+    productAuraNote: "Warna dan simbol adalah isyarat gaya, emosi, dan hadiah, bukan jaminan efek.",
+    relatedPieces: "Piece terkait",
+    aboutEyebrow: "CERITA BRAND",
+    aboutTitle: "Simbol tenang untuk dipakai setiap hari",
+    aboutIntro: "Bukan takhayul, bukan dekorasi produksi massal, tetapi mood harian, warna, dan doa yang dibuat bisa dikenakan.",
+    aboutBodyA: "Luma Beads adalah brand perhiasan muda yang berpusat pada simbol emosi dan gaya harian. Gelang bisa menjadi lebih dari aksesori: hadiah ulang tahun, penanda fase baru, atau pengingat kecil sebelum keluar rumah.",
+    aboutBodyB: "Setiap piece dimulai dari warna, proporsi manik, adegan pemakaian, dan ritual hadiah. Zodiak, warna keberuntungan, dan bulan lahir membantu pilihan berawal dari isyarat personal dan kembali ke hidup nyata.",
+    aboutBlockOneTitle: "Kenyamanan emosional",
+    aboutBlockOneText: "Gelang kecil, ringan, dan mudah dipadukan, tetapi dapat memberi pengingat keadaan yang jelas setiap kali keluar rumah. Tidak perlu besar untuk terasa ritual.",
+    aboutBlockTwoTitle: "Simbol aura personal",
+    aboutBlockTwoText: "Zodiak, warna, dan ulang tahun adalah isyarat personal yang mudah dipahami dan berguna sebagai awal hadiah. Semuanya memberi arah emosi, bukan janji efek.",
+    aboutBlockThreeTitle: "Kurasi handmade",
+    aboutBlockThreeText: "Piece ready-to-wear kurasi menjaga palet, proporsi, dan mood pemakaian tetap utuh. Customization dapat menjadi layanan lebih personal di tahap berikutnya.",
+    aboutCtaTitle: "Buat pilihan lebih tenang, dan hadiah lebih terasa",
+    aboutCtaBody: "Kami tidak menjanjikan efek, tetapi percaya benda kecil bermakna dapat membantu kamu mengingat ingin menjadi siapa hari ini.",
+    findYourPiece: "Temukan piecemu",
+    limitedTitle: "Koleksi Blessing Terbatas",
+    limitedBody: "Koleksi blessing dirancang dari kepedulian, kenangan, dan rasa menemani. Setiap piece dibuat terbatas untuk diri sendiri atau hadiah bermakna.",
+    limitedCardTitle: "Jumlah terbatas, restock tidak dijamin",
+    limitedCardBody: "Kami tidak menjanjikan efek, tetapi percaya benda kecil bermakna dapat menjadi pengingat dan teman harian. Koleksi ini menekankan nilai emosi, rasa kolektibel, dan niat memberi.",
+    limitedPillOne: "Doa simbolik",
+    limitedPillTwo: "Pengingat harian",
+    limitedPillThree: "Hadiah momen penting",
+    limitedInfoOneTitle: "Panduan hadiah",
+    limitedInfoOneText: "Cocok untuk kelulusan, ujian, perjalanan, perubahan karier, pindah rumah, ulang tahun, dan bab baru.",
+    limitedInfoTwoTitle: "Cerita produk",
+    limitedInfoTwoText: "Setiap piece dimulai dari konsep doa dan palet harian yang mudah dikenakan.",
+    limitedInfoThreeTitle: "Catatan pembelian",
+    limitedInfoThreeText: "Jumlah terbatas terlihat di halaman produk. Piece yang habis mungkin tidak restock.",
+    preorder: "Preorder",
+    checkoutThanks: "Terima kasih sudah menyukai Luma Beads",
+    checkoutBody: "Sebelum pembayaran resmi tersedia, lakukan preorder melalui salah satu kanal di bawah. MVP ini memakai Instagram, LINE, dan Google Form sebagai placeholder pemesanan.",
+    instagramOrder: "Pesan via Instagram DM",
+    lineOrder: "Pesan via LINE",
+    googleFormOrder: "Preorder Google Form",
+    continueShopping: "Lanjut belanja"
   }
 } as const;
 
@@ -670,6 +952,88 @@ const colorCopies: Record<Locale, Record<string, string>> = {
   }
 };
 
+const stockCopies: Record<Locale, Record<StockStatus, string>> = {
+  zh: {
+    "in-stock": "現貨",
+    "low-stock": "少量",
+    "sold-out": "售完"
+  },
+  en: {
+    "in-stock": "In stock",
+    "low-stock": "Low stock",
+    "sold-out": "Sold out"
+  },
+  th: {
+    "in-stock": "พร้อมส่ง",
+    "low-stock": "เหลือน้อย",
+    "sold-out": "หมด"
+  },
+  id: {
+    "in-stock": "Tersedia",
+    "low-stock": "Stok sedikit",
+    "sold-out": "Habis"
+  }
+};
+
+const zodiacCopies: Record<Locale, Record<string, string>> = {
+  zh: {
+    Aries: "白羊座",
+    Taurus: "金牛座",
+    Gemini: "雙子座",
+    Cancer: "巨蟹座",
+    Leo: "獅子座",
+    Virgo: "處女座",
+    Libra: "天秤座",
+    Scorpio: "天蠍座",
+    Sagittarius: "射手座",
+    Capricorn: "摩羯座",
+    Aquarius: "水瓶座",
+    Pisces: "雙魚座"
+  },
+  en: {
+    Aries: "Aries",
+    Taurus: "Taurus",
+    Gemini: "Gemini",
+    Cancer: "Cancer",
+    Leo: "Leo",
+    Virgo: "Virgo",
+    Libra: "Libra",
+    Scorpio: "Scorpio",
+    Sagittarius: "Sagittarius",
+    Capricorn: "Capricorn",
+    Aquarius: "Aquarius",
+    Pisces: "Pisces"
+  },
+  th: {
+    Aries: "ราศีเมษ",
+    Taurus: "ราศีพฤษภ",
+    Gemini: "ราศีเมถุน",
+    Cancer: "ราศีกรกฎ",
+    Leo: "ราศีสิงห์",
+    Virgo: "ราศีกันย์",
+    Libra: "ราศีตุลย์",
+    Scorpio: "ราศีพิจิก",
+    Sagittarius: "ราศีธนู",
+    Capricorn: "ราศีมังกร",
+    Aquarius: "ราศีกุมภ์",
+    Pisces: "ราศีมีน"
+  },
+  id: {
+    Aries: "Aries",
+    Taurus: "Taurus",
+    Gemini: "Gemini",
+    Cancer: "Cancer",
+    Leo: "Leo",
+    Virgo: "Virgo",
+    Libra: "Libra",
+    Scorpio: "Scorpio",
+    Sagittarius: "Sagitarius",
+    Capricorn: "Capricorn",
+    Aquarius: "Aquarius",
+    Pisces: "Pisces"
+  }
+};
+
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("zh");
 
@@ -702,10 +1066,35 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     const seriesLabel = (series: ProductSeries) =>
       seriesCopies[locale][series] ?? seriesCopies.zh[series];
 
+    const stockLabel = (status: StockStatus) =>
+      stockCopies[locale][status] ?? stockCopies.zh[status];
+
     const colorLabel = (color: string) =>
       colorCopies[locale][color] ?? colorCopies.zh[color] ?? color;
 
-    return { locale, setLocale, t, productText, seriesLabel, colorLabel };
+    const zodiacLabel = (zodiac: string) =>
+      zodiacCopies[locale][zodiac] ?? zodiacCopies.zh[zodiac] ?? zodiac;
+
+    const monthLabel = (month: number) =>
+      locale === "zh"
+        ? `${month} 月`
+        : locale === "th"
+          ? `เดือน ${month}`
+          : locale === "id"
+            ? `Bulan ${month}`
+            : `Month ${month}`;
+
+    return {
+      locale,
+      setLocale,
+      t,
+      productText,
+      seriesLabel,
+      stockLabel,
+      colorLabel,
+      zodiacLabel,
+      monthLabel
+    };
   }, [locale]);
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

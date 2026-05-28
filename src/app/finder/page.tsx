@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import { FinderForm } from "@/components/FinderForm";
-import { SectionTitle } from "@/components/SectionTitle";
+import { FinderPageShell } from "@/components/FinderPageShell";
 
 export const metadata: Metadata = {
   title: "Aura Guide｜Luma Beads",
@@ -10,18 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function FinderPage() {
-  return (
-    <section className="py-12 sm:py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionTitle eyebrow="AURA GUIDE" title="Choose the state you want to carry">
-          從個人線索開始，找到適合通勤、考試、送禮或新階段的情緒象徵。
-        </SectionTitle>
-        <div className="mt-9">
-          <Suspense fallback={<div className="bg-porcelain p-8">載入推薦中...</div>}>
-            <FinderForm />
-          </Suspense>
-        </div>
-      </div>
-    </section>
-  );
+  return <FinderPageShell />;
 }

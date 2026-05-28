@@ -2,24 +2,22 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import {
-  colorLabels,
-  products,
-  zodiacOptions
-} from "@/data/products";
+import { products, zodiacOptions } from "@/data/products";
+import { useI18n } from "@/lib/i18n";
 import { ProductGrid } from "./ProductGrid";
 
 type FinderTab = "zodiac" | "color" | "birthday";
 
-const tabs: { id: FinderTab; label: string }[] = [
-  { id: "zodiac", label: "Zodiac" },
-  { id: "color", label: "Aura" },
-  { id: "birthday", label: "Birthday" }
+const tabs: { id: FinderTab; labelKey: "tabZodiac" | "tabAura" | "tabBirthday" }[] = [
+  { id: "zodiac", labelKey: "tabZodiac" },
+  { id: "color", labelKey: "tabAura" },
+  { id: "birthday", labelKey: "tabBirthday" }
 ];
 
 const monthOptions = Array.from({ length: 12 }, (_, index) => index + 1);
 
 export function FinderForm() {
+  const { colorLabel, monthLabel, t, zodiacLabel } = useI18n();
   const searchParams = useSearchParams();
   const initialTab = (searchParams.get("tab") as FinderTab | null) ?? "zodiac";
   const [tab, setTab] = useState<FinderTab>(
@@ -74,7 +72,7 @@ export function FinderForm() {
                 tab === item.id ? "bg-ink text-porcelain shadow-sm" : "text-ink/58"
               }`}
             >
-              {item.label}
+              {t(item.labelKey)}
             </button>
           ))}
         </div>
@@ -83,7 +81,7 @@ export function FinderForm() {
           {tab === "zodiac" ? (
             <div className="grid gap-4">
               <label className="grid gap-2 text-sm font-semibold text-ink/74">
-                選擇星座
+                {t("chooseZodiac")}
                 <select
                   value={zodiac}
                   onChange={(event) => {
@@ -97,13 +95,13 @@ export function FinderForm() {
                 >
                   {zodiacOptions.map((option) => (
                     <option key={option.value} value={option.value}>
-                      {option.label}
+                      {zodiacLabel(option.value)}
                     </option>
                   ))}
                 </select>
               </label>
               <label className="grid gap-2 text-sm font-semibold text-ink/74">
-                或選擇出生月份
+                {t("chooseBirthMonthOptional")}
                 <select
                   value={zodiacMonth}
                   onChange={(event) => setZodiacMonth(Number(event.target.value))}
@@ -111,7 +109,7 @@ export function FinderForm() {
                 >
                   {monthOptions.map((month) => (
                     <option key={month} value={month}>
-                      {month} 月
+                      {monthLabel(month)}
                     </option>
                   ))}
                 </select>
@@ -132,7 +130,7 @@ export function FinderForm() {
                       : "border-ink/15 bg-cream text-ink/72 hover:border-ink"
                   }`}
                 >
-                  {colorLabels[colorValue] ?? colorValue}
+                  {colorLabel(colorValue)}
                 </button>
               ))}
             </div>
@@ -140,7 +138,7 @@ export function FinderForm() {
 
           {tab === "birthday" ? (
             <label className="grid gap-2 text-sm font-semibold text-ink/74">
-              出生月份
+              {t("birthMonth")}
               <select
                 value={birthdayMonth}
                 onChange={(event) => setBirthdayMonth(Number(event.target.value))}
@@ -148,7 +146,7 @@ export function FinderForm() {
               >
                 {monthOptions.map((month) => (
                   <option key={month} value={month}>
-                    {month} 月
+                    {monthLabel(month)}
                   </option>
                 ))}
               </select>
@@ -157,19 +155,19 @@ export function FinderForm() {
         </div>
 
         <p className="mt-6 bg-cream p-4 text-sm leading-6 text-ink/62">
-          這是一段 aura guide：用個人線索找到最貼近當下生活狀態的精選款式。
+          {t("finderHint")}
         </p>
       </aside>
 
       <section>
         <div className="mb-6 border border-ink/10 bg-porcelain p-5">
-          <h2 className="font-serif text-3xl text-ink">Recommended pieces</h2>
+          <h2 className="font-serif text-3xl text-ink">{t("recommendedPieces")}</h2>
           <p className="mt-2 text-sm leading-6 text-ink/62">
-            以下依照你的線索推薦最接近的情緒配色與佩戴狀態。
+            {t("finderResultBody")}
           </p>
           {!exact ? (
             <p className="mt-3 bg-bone px-4 py-3 text-sm font-medium text-ink/70">
-              目前沒有完全對應的款式，以下是相近風格推薦。
+              {t("finderFallback")}
             </p>
           ) : null}
         </div>

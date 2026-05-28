@@ -33,17 +33,17 @@ const states = [
  ] as const;
 
 const rituals = [
-  "依照生日、星座、顏色與當下狀態找出象徵線索",
-  "在既有精選款中選擇最貼近生活場景的配色",
-  "以束口袋、描圖紙與 aura card 完成送禮儀式"
-];
+  "ritualOne",
+  "ritualTwo",
+  "ritualThree"
+] as const;
 
 const editorialMoments = [
-  "上課前的冷白晨光",
-  "通勤包裡的柔軟布料",
-  "咖啡店窗邊的安靜休息",
-  "送出前最後一次整理卡片"
-];
+  "editorialOne",
+  "editorialTwo",
+  "editorialThree",
+  "editorialFour"
+] as const;
 
 const featuredProducts = products.filter((product) =>
   [
@@ -64,7 +64,7 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden bg-ink text-porcelain">
         <Image
           src={publicAsset("/images/luma-editorial-hero.png")}
-          alt="配戴 Luma Beads 手串的晨光生活情境"
+          alt={t("heroAlt")}
           fill
           priority
           sizes="100vw"
@@ -106,12 +106,8 @@ export default function HomePage() {
             {t("philosophyBody")}
           </SectionTitle>
           <div className="grid gap-6 text-base leading-8 text-ink/68 sm:grid-cols-2">
-            <p>
-              我們不把手串做成誇張的開運物，也不把它變成大量複製的飾品。每一款都從可搭配、可送禮、可被記住的生活場景出發。
-            </p>
-            <p>
-              你選的不是一串珠子，而是今天想帶出門的狀態：安定、界線、溫柔、新開始，或一個只想送給對方的祝福。
-            </p>
+            <p>{t("philosophyBodyA")}</p>
+            <p>{t("philosophyBodyB")}</p>
           </div>
         </div>
       </section>
@@ -167,7 +163,7 @@ export default function HomePage() {
           <div className="relative min-h-[440px] overflow-hidden">
             <Image
               src={publicAsset("/images/luma-unboxing-ritual.png")}
-              alt="Luma Beads 手串開箱、束口袋與 aura card"
+              alt={t("unboxingAlt")}
               fill
               sizes="(min-width: 1024px) 48vw, 100vw"
               className="object-cover"
@@ -190,7 +186,7 @@ export default function HomePage() {
                     0{index + 1}
                   </span>
                   <span className="text-sm leading-6 text-porcelain/72">
-                    {item}
+                    {t(item)}
                   </span>
                 </li>
               ))}
@@ -208,7 +204,7 @@ export default function HomePage() {
             <div className="grid gap-px border border-ink/10 bg-ink/10">
               {editorialMoments.map((moment) => (
                 <p key={moment} className="bg-porcelain px-5 py-4 text-sm text-ink/68">
-                  {moment}
+                  {t(moment)}
                 </p>
               ))}
             </div>
@@ -217,7 +213,7 @@ export default function HomePage() {
             <div className="relative min-h-[520px] overflow-hidden">
               <Image
                 src={publicAsset("/images/luma-lifestyle-editorial.png")}
-                alt="咖啡店窗邊配戴 Luma Beads 手串的生活情境"
+                alt={t("lifestyleAlt")}
                 fill
                 sizes="(min-width: 1024px) 34vw, 100vw"
                 className="object-cover"
@@ -234,7 +230,7 @@ export default function HomePage() {
                   {t("auraNote")}
                 </p>
                 <p className="mt-4 font-serif text-3xl leading-tight text-ink">
-                  A quiet symbol for days when softness still needs structure.
+                  {t("auraNoteLine")}
                 </p>
               </div>
             </div>
